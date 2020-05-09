@@ -9,39 +9,109 @@
   <body>
 		<div id = "countdown"> </div>
 		<div id = "container"> 
-			<div id = "itemOne"> </div>
+			<p id = "memes" display = "none"> MEMES </p>
+			<img id = "thing" src = "http://www.kirupa.com/html5/images/donut.png" height = "300" width="300">
+			<img id = "pepe" src = "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.stickpng.com%2Fassets%2Fimages%2F5845ca7c1046ab543d25238b.png&f=1&nofb=1" height = "300" width = "300" display = "none">
+			<img id = "cat1" src = "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn140.picsart.com%2F300036864500211.png%3Fr1024x1024&f=1&nofb=1" height = "300" width = "300" display = "none">
 		</div>
     <script>
+		var requestAnimationFrame = window.requestAnimationFrame ||
+																window.mozRequestAnimationFrame ||
+																window.webkitRequestAnimationFrame ||
+																window.msRequestAnimationFrame;
+		var theFirstThing = document.querySelector("#thing");
+		var pepe = document.querySelector("#pepe");
+		var box = document.querySelector("#container");
+		var cat1 = document.querySelector("#cat1");
+		var memes = document.querySelector("#memes");
+		var currentPos = 0;
+		var currentWidth = 1000;
+		var currentHeight = 1000;
 		var timeleft = 10;
+		function moveDonut () {
+			currentPos += 5;
+
+			theFirstThing.style.left = currentPos + "px";
+
+			requestAnimationFrame(moveDonut);
+		}
+		function increaseBoxSize () {
+			box.style.width = currentWidth + "px";
+			box.style.height = currentHeight + "px";
+			window.requestAnimationFrame(increaseBoxSize);
+		}
+		function movePepe () {
+			currentPos += 2;
+			pepe.style.display = "block";
+			pepe.style.transform = "rotate(" + currentPos + "deg)";
+
+			window.requestAnimationFrame(movePepe);
+		}
+		function moveCryingCat () {
+			currentPos += 0.5; 
+
+			cat1.style.display = "block";
+			cat1.style.transform = "skewX(" + currentPos + "deg)";
+			cat1.style.left = currentPos + "px";
+
+			window.requestAnimationFrame(moveCryingCat);
+		}
+		function text () {
+			currentPos += 1;
+
+			memes.style.display = "block";
+			memes.style.transform = "skewX(" + currentPos + "deg)";
+
+			window.requestAnimationFrame(text);
+		}
 		var downloadTimer = setInterval(function(){
 		if(timeleft <= 0){
 			clearInterval(downloadTimer);
 			document.getElementById("countdown").innerHTML = "Finished";
+			moveDonut();
+			increaseBoxSize();
+			movePepe();
+			moveCryingCat();
+			text();
 		} else {
 			document.getElementById("countdown").innerHTML = timeleft;
 		}
 		timeleft -= 1;
 		}, 1000);
-
-		function firstAnimation() {
-			var item = document.getElementById("itemOne");
-
-		}
 		</script>
 		<style>
-			#item {
-				background: blue;
-				position: absolute;
-				height: 75px;
-				width: 200px;
-				margin: 100px;
+			#thing {
+				position: relative;
+				left: 50px;
+				top: 25px;
 			}
 
 			#container {
-				width: 400px; 
-				height: 400px; 
+				width: 550px; 
+				height: 350px; 
+				border: 5px black solid; 
+				overflow: hidden;
+				background-color: #FFFF00; 
+			}
+
+			#pepe {
 				position: relative;
-				
+				left: 50px;
+				top: 100px;
+			}
+
+			#cat1 {
+				position: relative;
+				left: 150px;
+				top: 100px;
+			}
+
+			#memes {
+				position: relative;
+				left: 300px;
+				top: 25px;
+				font-family: "Helvetica"; 
+				color: black;
 			}
 		</style>
   </body>
